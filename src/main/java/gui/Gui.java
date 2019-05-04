@@ -1,7 +1,7 @@
 package gui;
 
 import controllers.AppController;
-import controllers.MainController;
+import controllers.BaseController;
 import controllers.MenuController;
 import controllers.OptionController;
 import controllers.ResultController;
@@ -16,7 +16,7 @@ public class Gui {
 	Stage primaryStage;
 	StackPane stackPane;
 	Scene scene;
-	MainController mainController;
+	BaseController mainController;
 	OptionSettings optionSettings;
 	
 	DataStorage dataStorage;
@@ -35,7 +35,7 @@ public class Gui {
 		}
 		
 		this.primaryStage = primaryStage;
-		this.mainController = new MainController();
+		this.mainController = new BaseController();
 		GuiScreens.BASE.getScreenLoader().setController(mainController);
 		
 		GuiScreens.MENU.getScreenLoader().setController(new MenuController(this.mainController));
@@ -48,7 +48,7 @@ public class Gui {
 	
 	private void startPrimaryStage() throws Exception {
 		this.stackPane = GuiScreens.BASE.getScreenLoader().load();
-		this.scene = new Scene(stackPane, 600, 400);
+		this.scene = new Scene(stackPane, 600, 550);
 		scene.getStylesheets().add(getClass().getResource("/application.css").toExternalForm());
 		primaryStage.setScene(scene);
 		primaryStage.setTitle("Przyk³adowy projekt JavaFX");

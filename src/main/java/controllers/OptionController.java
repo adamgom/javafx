@@ -22,10 +22,10 @@ public class OptionController {
 	@FXML private Label label;
 	@FXML private Button returnToMenuButton;
 
-	private MainController mainController;
+	private BaseController mainController;
 	private OptionSettings optionSettings;
 	
-	public OptionController(MainController mainController, OptionSettings optionSettings) {
+	public OptionController(BaseController mainController, OptionSettings optionSettings) {
 		this.mainController = mainController;
 		this.optionSettings = optionSettings;
 	}

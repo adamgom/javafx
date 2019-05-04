@@ -22,48 +22,38 @@ import javafx.scene.layout.Pane;
 
 public class ResultController {
 	@FXML private Pane resultPane;
-	@FXML private Button returnToMenuButton, newButton, cancelButton, addButton, removeButton, exitButton;
+	@FXML private Button returnToMenuButton, newButton, cancelButton, addButton, removeButton, exit;
 	@FXML private DatePicker datePicker;
 	@FXML private TextField textField;
 	@FXML private ListView<BeanResultData> listView, removeView;
 	@FXML private Label labelAdd, labelRemove;
 	
-	private MainController mainController;
+	private BaseController mainController;
 	private ResultData resultData;
 	private int selectedIndex;
 	private long selectedDate;
 	
-	public ResultController(MainController mainController, ResultData resultData) {
+	public ResultController(BaseController mainController, ResultData resultData) {
 		this.mainController = mainController;
 		this.resultData = resultData;
 	}
 	
 	@FXML
 	private void initialize() {
-//		EventHandler<ActionEvent> handler = new EventHandler<ActionEvent>() {
-//			@Override
-//			public void handle(ActionEvent event) {
-//				System.out.println("click");
-//			}
-//		};
 		listView.itemsProperty().bind(resultData.listProperty);
 		removeView.itemsProperty().bind(resultData.listProperty);
 		initialSettings();
-		EventHandler<ActionEvent> returnToMenuAction = e -> {setDisable();this.mainController.setScreen(GuiScreens.MENU.getPane());};  
-		EventHandler<ActionEvent> selectDate = e -> selectDate();
-		EventHandler<KeyEvent> selectItemToRemoveKey = e -> selectIndex();
-		EventHandler<MouseEvent> selectItemToRemoveMouse = e -> selectIndex();
 
-		this.returnToMenuButton.addEventHandler(ActionEvent.ACTION, returnToMenuAction);
-		this.addButton.addEventHandler(ActionEvent.ACTION, event -> addNewData());
-		this.datePicker.addEventHandler(ActionEvent.ACTION, selectDate);
-		this.newButton.addEventHandler(ActionEvent.ACTION, event -> newData());
-		this.cancelButton.addEventHandler(ActionEvent.ACTION, event -> cancelNewData());
-		this.removeButton.addEventHandler(ActionEvent.ACTION, event -> removeData());
-		this.removeView.addEventHandler(MouseEvent.MOUSE_CLICKED, selectItemToRemoveMouse);
-		this.removeView.addEventHandler(KeyEvent.ANY, selectItemToRemoveKey);
-		this.exitButton.addEventHandler(ActionEvent.ACTION, event -> Platform.exit());
-		this.datePicker.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> selectDate());
+		this.returnToMenuButton.addEventHandler(ActionEvent.ACTION, e -> {setDisable();this.mainController.setScreen(GuiScreens.MENU.getPane());});
+		this.addButton.addEventHandler(ActionEvent.ACTION, e -> addNewData());
+		this.datePicker.addEventHandler(ActionEvent.ACTION, e -> selectDate());
+		this.newButton.addEventHandler(ActionEvent.ACTION, e -> newData());
+		this.cancelButton.addEventHandler(ActionEvent.ACTION, e -> cancelNewData());
+		this.removeButton.addEventHandler(ActionEvent.ACTION, e -> removeData());
+		this.removeView.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> selectIndex());
+		this.removeView.addEventHandler(KeyEvent.ANY, e -> selectIndex());
+		this.datePicker.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> selectDate());
+		this.exit.addEventHandler(ActionEvent.ACTION, e -> System.exit(0));
 	}
 	
 	private void selectIndex() {

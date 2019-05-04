@@ -1,15 +1,78 @@
 /* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
 
 .root {
-	-fx-background-color: grey;
-	-fx-spacing: 10px;
-	-fx-padding: 10px;
-}
-
-HBox {
-	-fx-spacing: 10px;
+	-fx-background-color: #faf0be;
 }
 
 .text-field {
--fx-font-size: 15px;	
+	-fx-font-size: 15px;
 }
+
+.button:hover {
+	-fx-background-color: #328530;
+}
+
+.button:pressed {
+	-fx-background-color: #96ba77;
+}
+	
+.button {
+	-fx-background-color: #c8d59b;
+}
+
+.tab-pane {
+	-fx-background-color: #f2e5be;
+}
+
+.tab-pane {
+	-fx-background-color: #f2e5be;
+    /*-fx-opacity: 0;*/
+}
+
+.tab-header-area .tab-header-background {
+	-fx-background-color: #d9c182;
+}
+
+.tab-pane
+{
+    -fx-tab-min-width:90px;
+}
+
+.tab{
+    -fx-background-insets: 0 1 0 1,0,0;
+}
+
+.tab-pane .tab
+{
+    -fx-background-color: #e6e6e6;
+}
+
+.tab-pane .tab:selected
+{
+    -fx-background-color: #96c2b1;
+}
+
+.tab .tab-label { 
+    -fx-alignment: CENTER;
+    -fx-text-fill: #828282;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+
+.tab:selected .tab-label { 
+    -fx-alignment: CENTER;
+    -fx-text-fill: black;
+}
+
+/*
+ * 	#faf0be 	(250,240,190)
+	#c8d59b 	(200,213,155)
+	#96ba77 	(150,186,119)
+	#64a054 	(100,160,84)
+	#328530 	(50,133,48)
+	* 
+	* 
+	#f2e5be 	(242,229,190)
+	#d9c182 	(217,193,130)
+	#96c2b1 	(150,194,177)
+	*/

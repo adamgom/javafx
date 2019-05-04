@@ -22,12 +22,12 @@ public class AppController {
 	@FXML private TextArea textArea;
 	@FXML private Label auxLabel1;
 	@FXML private Label auxLabel2;
-	private MainController mainController;
+	private BaseController mainController;
 	private DataStorage dataStorage;
 	private int currentSliderValue;
 	private String newDataInfo;
 	
-	public AppController(MainController mainController, DataStorage dataStorage) {
+	public AppController(BaseController mainController, DataStorage dataStorage) {
 		this.newDataInfo = "Wprowadz now¹ dan¹";
 		this.mainController = mainController;
 		this.dataStorage = dataStorage;

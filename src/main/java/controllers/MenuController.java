@@ -11,8 +11,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 
 public class MenuController {
-
-	MainController mainController;
+	BaseController baseController;
 	FXMLLoader menuScreenLoader;
 	
 	@FXML private Pane menuPane;
@@ -21,36 +20,20 @@ public class MenuController {
 	@FXML private Button optionButton;
 	@FXML private Button quitButton;
 
-	public MenuController(MainController mainController) {
-		this.mainController = mainController;
+	public MenuController(BaseController baseController) {
+		this.baseController = baseController;
 	}
 	
 	@FXML
 	public void initialize () {
-		EventHandler<ActionEvent> openAppEvent = e -> mainController.setScreen(GuiScreens.APP.getPane());
-		EventHandler<ActionEvent> openOprionEvent = e -> mainController.setScreen(GuiScreens.OPTION.getPane());
-		EventHandler<ActionEvent> openResultEvent = e -> mainController.setScreen(GuiScreens.RESULT.getPane());
-		EventHandler<ActionEvent> exitEvent = e -> Platform.exit();
-		EventHandler<MouseEvent> mouseEnterEvent = e -> mouseEnter();
-		EventHandler<MouseEvent> mouseExitEvent = e -> mouseExit();
+		EventHandler<ActionEvent> openAppEvent = e -> baseController.setScreen(GuiScreens.APP.getPane());
 		
 		this.appButton.addEventHandler(ActionEvent.ACTION, openAppEvent);
-		this.resultButton.addEventHandler(ActionEvent.ACTION, openResultEvent);
-		this.optionButton.addEventHandler(ActionEvent.ACTION, openOprionEvent);
-		this.quitButton.addEventHandler(ActionEvent.ACTION, exitEvent);
-		this.quitButton.addEventHandler(MouseEvent.MOUSE_ENTERED, mouseEnterEvent);
-		this.quitButton.addEventHandler(MouseEvent.MOUSE_EXITED, mouseExitEvent);
+		this.resultButton.addEventHandler(ActionEvent.ACTION, e ->  baseController.setScreen(GuiScreens.RESULT.getPane()));
+		this.optionButton.addEventHandler(ActionEvent.ACTION, e -> baseController.setScreen(GuiScreens.OPTION.getPane()));
+		this.quitButton.addEventHandler(ActionEvent.ACTION, e -> Platform.exit());
 		
-		this.mainController.setScreen(menuPane);
-	}
-	
-	private void mouseEnter() {
-		quitButton.setText("WYJŒCIE");
-		quitButton.setStyle("-fx-background-color: #ff0000");
-	}
-	
-	private void mouseExit() {
-		quitButton.setText("Wyjœcie");
-		quitButton.setStyle("");
+		this.baseController.setScreen(menuPane);
+//		this.mainController.setScreen(GuiScreens.RESULT.getPane());
 	}
 }
