@@ -1,7 +1,8 @@
-package controllers;
+package gui.controllers;
 
-import data.OptionSettings;
 import gui.GuiScreens;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -12,9 +13,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import main.Engine;
 
 public class OptionController {
-	@FXML private CheckBox approvedCheckBox;
+	@FXML private CheckBox checkBox;
 	@FXML private Button okButton;
 	@FXML private DatePicker datePicker;
 	@FXML private TextField textField;
@@ -23,31 +25,38 @@ public class OptionController {
 	@FXML private Button returnToMenuButton;
 
 	private BaseController mainController;
-	private OptionSettings optionSettings;
+	private StringProperty textFieldProperty;
+	private double progressBarProgress;
 	
-	public OptionController(BaseController mainController, OptionSettings optionSettings) {
+	public OptionController(BaseController mainController) {
 		this.mainController = mainController;
-		this.optionSettings = optionSettings;
+//		this.checkBox.setSelected(true);
+		this.datePicker = null;
+		this.progressBarProgress = 0.0;
+		this.textFieldProperty = new SimpleStringProperty("init value");
+				//(this, "textFieldProperty", "init value");
 	}
 	
 	@FXML
 	public void initialize () {
+		this.checkBox.setSelected(true);
 		EventHandler<ActionEvent> write = e -> okButtonMethod();
 		this.returnToMenuButton.addEventHandler(ActionEvent.ACTION, event -> mainController.setScreen(GuiScreens.MENU.getPane()));
-		this.approvedCheckBox.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> click());
 		this.okButton.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> click());
 		this.okButton.addEventHandler(ActionEvent.ACTION, write);
-		this.datePicker.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> click());
-		this.progressBar.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> click());
-		this.textField.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> click());
-		this.textField.textProperty().bindBidirectional(optionSettings.getTextField());;
-		this.label.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> click());
-		this.textField.textProperty().addListener((Observable, oldValue, newValue) -> this.label.textProperty().bind(optionSettings.getTextField())); 
+		this.textField.textProperty().bindBidirectional(textFieldProperty);
+//		this.label.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> click());
+//		this.textField.textProperty().addListener((Observable, oldValue, newValue) -> this.label.textProperty().bind(textFieldProperty)); 
 	}
-	
+
 	private void click() {
-		optionSettings.progress();
-		this.progressBar.setProgress(optionSettings.getProgressBarProgress());
+		String newLine = ", ";
+		if (checkBox.isSelected()) {
+			newLine = "\r\n";
+		}
+		
+		this.progressBar.setProgress(progressBarProgress += 0.02);
+		Engine.getInstance().getFileManager().writeFile(newLine + textField.getText(), checkBox.isSelected());
 	}
 	
 	public void okButtonMethod() {

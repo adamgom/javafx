@@ -1,4 +1,4 @@
-package controllers;
+package gui.controllers;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -7,9 +7,7 @@ import java.util.Date;
 import data.BeanResultData;
 import data.ResultData;
 import gui.GuiScreens;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
@@ -19,6 +17,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import main.Engine;
 
 public class ResultController {
 	@FXML private Pane resultPane;
@@ -28,14 +27,14 @@ public class ResultController {
 	@FXML private ListView<BeanResultData> listView, removeView;
 	@FXML private Label labelAdd, labelRemove;
 	
-	private BaseController mainController;
 	private ResultData resultData;
+	private BaseController mainController;
 	private int selectedIndex;
 	private long selectedDate;
 	
-	public ResultController(BaseController mainController, ResultData resultData) {
+	public ResultController(BaseController mainController) {
 		this.mainController = mainController;
-		this.resultData = resultData;
+//		this.resultData = Engine.getInstance().getResultData();
 	}
 	
 	@FXML

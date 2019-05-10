@@ -4,7 +4,7 @@ import javafx.beans.property.LongProperty;
 import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import main.Settings;
+import main.Config;
 
 public class BeanResultData {
 	StringProperty text;
@@ -17,7 +17,7 @@ public class BeanResultData {
 	
 	@Override
 	public String toString() {
-		return this.text.get() + " ; " + Settings.formatter.format(this.data.get());
+		return this.text.get() + " ; " + Config.formatter.format(this.data.get());
 	}
 	
 	public StringProperty getText() {

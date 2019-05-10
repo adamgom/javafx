@@ -1,10 +1,11 @@
 package gui;
 
+import java.io.IOException;
+
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.Pane;
 
 public enum GuiScreens {
-	BASE("BaseScreen"),
 	MENU("MenuScreen"),
 	APP("AppScreen"),
 	OPTION("OptionScreen"),
@@ -27,5 +28,13 @@ public enum GuiScreens {
 	
 	public Pane getPane() {
 		return pane;
+	}
+	
+	public void initPane() {
+		try {
+			this.pane = this.screenLoader.load();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }

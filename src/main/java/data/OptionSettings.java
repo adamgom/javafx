@@ -18,31 +18,31 @@ public class OptionSettings {
 		this.textField = new SimpleStringProperty(this, "textFieldProperty", "init value");
 	}
 
-	public void progress() {
-		this.progressBarProgress += 0.02;
-	}
+//	public void progress() {
+//		this.progressBarProgress += 0.02;
+//	}
 	
-	public boolean isApprovedCheckBox() {
-		return approvedCheckBox;
-	}
+//	public boolean isApprovedCheckBox() {
+//		return approvedCheckBox;
+//	}
+//	
+//	public void setApprovedCheckBox(boolean approvedCheckBox) {
+//		this.approvedCheckBox = approvedCheckBox;
+//	}
 	
-	public void setApprovedCheckBox(boolean approvedCheckBox) {
-		this.approvedCheckBox = approvedCheckBox;
-	}
-	
-	public Date getDatePicker() {
-		return datePicker;
-	}
-	
-	public void setDatePicker(Date datePicker) {
-		this.datePicker = datePicker;
-	}
-	
-	public StringProperty getTextField() {
-		return textField;
-	}
-	
-	public double getProgressBarProgress() {
-		return progressBarProgress;
-	}
+//	public Date getDatePicker() {
+//		return datePicker;
+//	}
+//	
+//	public void setDatePicker(Date datePicker) {
+//		this.datePicker = datePicker;
+//	}
+//	
+//	public StringProperty getTextField() {
+//		return textField;
+//	}
+//	
+//	public double getProgressBarProgress() {
+//		return progressBarProgress;
+//	}
 }

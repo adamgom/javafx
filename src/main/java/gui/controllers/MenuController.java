@@ -1,4 +1,4 @@
-package controllers;
+package gui.controllers;
 
 import gui.GuiScreens;
 import javafx.application.Platform;
@@ -9,6 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import main.Engine;
 
 public class MenuController {
 	BaseController baseController;
@@ -26,14 +27,16 @@ public class MenuController {
 	
 	@FXML
 	public void initialize () {
-		EventHandler<ActionEvent> openAppEvent = e -> baseController.setScreen(GuiScreens.APP.getPane());
-		
+		EventHandler<ActionEvent> openAppEvent = e -> openApp();
 		this.appButton.addEventHandler(ActionEvent.ACTION, openAppEvent);
 		this.resultButton.addEventHandler(ActionEvent.ACTION, e ->  baseController.setScreen(GuiScreens.RESULT.getPane()));
 		this.optionButton.addEventHandler(ActionEvent.ACTION, e -> baseController.setScreen(GuiScreens.OPTION.getPane()));
 		this.quitButton.addEventHandler(ActionEvent.ACTION, e -> Platform.exit());
-		
 		this.baseController.setScreen(menuPane);
-//		this.mainController.setScreen(GuiScreens.RESULT.getPane());
+	}
+	
+	private void openApp() {
+		Engine.getInstance().getDataStorage().dataFromFile();
+		baseController.setScreen(GuiScreens.APP.getPane());
 	}
 }
