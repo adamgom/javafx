@@ -34,7 +34,7 @@ public class ResultController {
 	
 	public ResultController(BaseController mainController) {
 		this.mainController = mainController;
-//		this.resultData = Engine.getInstance().getResultData();
+		this.resultData = Engine.getInstance().getResultData();
 	}
 	
 	@FXML

@@ -39,21 +39,23 @@ public class Gui {
 //		GuiScreens.OPTION.getScreenLoader().setController(Engine.getInstance().getOptionController());
 //		GuiScreens.RESULT.getScreenLoader().setController(Engine.getInstance().getResultController());
 		this.baseLoader.setController(baseController);
+//		this.stackPane = baseLoader.load();
+		
 		GuiScreens.MENU.getScreenLoader().setController(this.menuController);
 		GuiScreens.APP.getScreenLoader().setController(this.appController);
 		GuiScreens.OPTION.getScreenLoader().setController(this.optionController);
 		GuiScreens.RESULT.getScreenLoader().setController(this.resultController);
 
-//		GuiScreens.MENU.setPane(GuiScreens.MENU.getScreenLoader().load());
-//		GuiScreens.APP.setPane(GuiScreens.APP.getScreenLoader().load());
-//		GuiScreens.OPTION.setPane(GuiScreens.OPTION.getScreenLoader().load());
-//		GuiScreens.RESULT.setPane(GuiScreens.RESULT.getScreenLoader().load());
+		GuiScreens.MENU.setPane(GuiScreens.MENU.getScreenLoader().load());
+		GuiScreens.APP.setPane(GuiScreens.APP.getScreenLoader().load());
+		GuiScreens.OPTION.setPane(GuiScreens.OPTION.getScreenLoader().load());
+		GuiScreens.RESULT.setPane(GuiScreens.RESULT.getScreenLoader().load());
 		
 //		GuiScreens.MENU.initPane();
 //		GuiScreens.APP.initPane();
 //		GuiScreens.OPTION.initPane();
 //		GuiScreens.RESULT.initPane();
-//		
+		
 		startPrimaryStage();
 	}
 

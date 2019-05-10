@@ -30,11 +30,11 @@ public enum GuiScreens {
 		return pane;
 	}
 	
-	public void initPane() {
-		try {
-			this.pane = this.screenLoader.load();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
+//	public void initPane() {
+//		try {
+//			this.pane = this.screenLoader.load();
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//	}
 }

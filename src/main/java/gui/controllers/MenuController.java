@@ -27,12 +27,10 @@ public class MenuController {
 	
 	@FXML
 	public void initialize () {
-		EventHandler<ActionEvent> openAppEvent = e -> openApp();
-		this.appButton.addEventHandler(ActionEvent.ACTION, openAppEvent);
+		this.appButton.addEventHandler(ActionEvent.ACTION, e -> openApp());
 		this.resultButton.addEventHandler(ActionEvent.ACTION, e ->  baseController.setScreen(GuiScreens.RESULT.getPane()));
 		this.optionButton.addEventHandler(ActionEvent.ACTION, e -> baseController.setScreen(GuiScreens.OPTION.getPane()));
 		this.quitButton.addEventHandler(ActionEvent.ACTION, e -> Platform.exit());
-		this.baseController.setScreen(menuPane);
 	}
 	
 	private void openApp() {
