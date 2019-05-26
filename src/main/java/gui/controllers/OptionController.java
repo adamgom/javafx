@@ -24,12 +24,16 @@ public class OptionController {
 	@FXML private Label label;
 	@FXML private Button returnToMenuButton;
 
-	private BaseController mainController;
+//	private BaseController mainController;
 	private StringProperty textFieldProperty;
 	private double progressBarProgress;
 	
+	public OptionController() {
+		this(null);
+	}
+	
 	public OptionController(BaseController mainController) {
-		this.mainController = mainController;
+//		this.mainController = mainController;
 //		this.checkBox.setSelected(true);
 		this.datePicker = null;
 		this.progressBarProgress = 0.0;
@@ -41,7 +45,7 @@ public class OptionController {
 	public void initialize () {
 		this.checkBox.setSelected(true);
 		EventHandler<ActionEvent> write = e -> okButtonMethod();
-		this.returnToMenuButton.addEventHandler(ActionEvent.ACTION, event -> mainController.setScreen(GuiScreens.MENU.getPane()));
+		this.returnToMenuButton.addEventHandler(ActionEvent.ACTION, event -> Engine.getInstance().getBaseController().setScreen(GuiScreens.MENU.getPane()));
 		this.okButton.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> click());
 		this.okButton.addEventHandler(ActionEvent.ACTION, write);
 		this.textField.textProperty().bindBidirectional(textFieldProperty);

@@ -4,7 +4,6 @@ import data.DataStorage;
 import data.OptionSettings;
 import data.ResultData;
 import fileManager.FileManager;
-import gui.GuiScreens;
 import gui.controllers.AppController;
 import gui.controllers.BaseController;
 import gui.controllers.MenuController;
@@ -18,11 +17,11 @@ public class Engine {
 	private DataStorage dataStorage;
 	private ResultData resultData;
 	
-//	private BaseController baseController;
-//	private MenuController menuController;
-//	private AppController appController;
-//	private OptionController optionController;
-//	private ResultController resultController;
+	private BaseController baseController;
+	private MenuController menuController;
+	private AppController appController;
+	private OptionController optionController;
+	private ResultController resultController;
 	
 	private Engine() {
 		fileManager = new FileManager(Config.PATH);
@@ -30,8 +29,53 @@ public class Engine {
 		resultData = new ResultData();
 //		dataStorage.dataFromFile();
 //		optionSettings = new OptionSettings();
+		this.baseController = new BaseController();
+		this.menuController = new MenuController();
+		this.appController = new AppController();
+		this.optionController = new OptionController();
+		this.resultController = new ResultController();
 	}
 	
+	public BaseController getBaseController() {
+		return baseController;
+	}
+
+	public void setBaseController(BaseController baseController) {
+		this.baseController = baseController;
+	}
+
+	public MenuController getMenuController() {
+		return menuController;
+	}
+
+	public void setMenuController(MenuController menuController) {
+		this.menuController = menuController;
+	}
+
+	public AppController getAppController() {
+		return appController;
+	}
+
+	public void setAppController(AppController appController) {
+		this.appController = appController;
+	}
+
+	public OptionController getOptionController() {
+		return optionController;
+	}
+
+	public void setOptionController(OptionController optionController) {
+		this.optionController = optionController;
+	}
+
+	public ResultController getResultController() {
+		return resultController;
+	}
+
+	public void setResultController(ResultController resultController) {
+		this.resultController = resultController;
+	}
+
 	public static Engine getInstance() {
 		if (instance == null) {
 			return instance = new Engine();

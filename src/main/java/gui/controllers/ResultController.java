@@ -28,22 +28,18 @@ public class ResultController {
 	@FXML private Label labelAdd, labelRemove;
 	
 	private ResultData resultData;
-	private BaseController mainController;
 	private int selectedIndex;
 	private long selectedDate;
 	
-	public ResultController(BaseController mainController) {
-		this.mainController = mainController;
-		this.resultData = Engine.getInstance().getResultData();
+	public ResultController() {
 	}
 	
 	@FXML
 	private void initialize() {
+		this.resultData = Engine.getInstance().getResultData();
 		listView.itemsProperty().bind(resultData.listProperty);
 		removeView.itemsProperty().bind(resultData.listProperty);
-		initialSettings();
-
-		this.returnToMenuButton.addEventHandler(ActionEvent.ACTION, e -> {setDisable();this.mainController.setScreen(GuiScreens.MENU.getPane());});
+		this.returnToMenuButton.addEventHandler(ActionEvent.ACTION, e -> returnToMenu());
 		this.addButton.addEventHandler(ActionEvent.ACTION, e -> addNewData());
 		this.datePicker.addEventHandler(ActionEvent.ACTION, e -> selectDate());
 		this.newButton.addEventHandler(ActionEvent.ACTION, e -> newData());
@@ -53,6 +49,12 @@ public class ResultController {
 		this.removeView.addEventHandler(KeyEvent.ANY, e -> selectIndex());
 		this.datePicker.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> selectDate());
 		this.exit.addEventHandler(ActionEvent.ACTION, e -> System.exit(0));
+		initialSettings();
+	}
+	
+	private void returnToMenu() {
+		setDisable();
+		Engine.getInstance().getBaseController().setScreen(GuiScreens.MENU.getPane());
 	}
 	
 	private void selectIndex() {

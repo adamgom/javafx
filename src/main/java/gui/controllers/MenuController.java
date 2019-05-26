@@ -12,7 +12,7 @@ import javafx.scene.layout.Pane;
 import main.Engine;
 
 public class MenuController {
-	BaseController baseController;
+//	BaseController baseController;
 	FXMLLoader menuScreenLoader;
 	
 	@FXML private Pane menuPane;
@@ -21,20 +21,24 @@ public class MenuController {
 	@FXML private Button optionButton;
 	@FXML private Button quitButton;
 
+	public MenuController() {
+		this(null);
+	}
+	
 	public MenuController(BaseController baseController) {
-		this.baseController = baseController;
+//		this.baseController = baseController;
 	}
 	
 	@FXML
 	public void initialize () {
 		this.appButton.addEventHandler(ActionEvent.ACTION, e -> openApp());
-		this.resultButton.addEventHandler(ActionEvent.ACTION, e ->  baseController.setScreen(GuiScreens.RESULT.getPane()));
-		this.optionButton.addEventHandler(ActionEvent.ACTION, e -> baseController.setScreen(GuiScreens.OPTION.getPane()));
+		this.resultButton.addEventHandler(ActionEvent.ACTION, e ->  Engine.getInstance().getBaseController().setScreen(GuiScreens.RESULT.getPane()));
+		this.optionButton.addEventHandler(ActionEvent.ACTION, e -> Engine.getInstance().getBaseController().setScreen(GuiScreens.OPTION.getPane()));
 		this.quitButton.addEventHandler(ActionEvent.ACTION, e -> Platform.exit());
 	}
 	
 	private void openApp() {
 		Engine.getInstance().getDataStorage().dataFromFile();
-		baseController.setScreen(GuiScreens.APP.getPane());
+		Engine.getInstance().getBaseController().setScreen(GuiScreens.APP.getPane());
 	}
 }

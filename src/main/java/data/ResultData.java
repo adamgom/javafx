@@ -15,7 +15,7 @@ public class ResultData {
 	public ResultData() {
 		this.listProperty = new SimpleListProperty<>();
 		List<BeanResultData> baseResultList = new ArrayList<>();
-		
+
 		for (int i = 0 ; i < 4 ; i++) {
 			baseResultList.add(new BeanResultData("Info: " + i, new Date().getTime()));
 		}
@@ -24,11 +24,8 @@ public class ResultData {
 	}
 	
 	public BeanResultData getResultListItem(int position) {
-		if (position == -1) {
-			return resultList.get(resultList.size()-1);
-		} else {
-			return resultList.get(position);	
-		}
+		if (position == -1) return resultList.get(resultList.size()-1);
+		return resultList.get(position);	
 	}
 	
 	public void addToResultList(String text, long date) {
@@ -37,7 +34,6 @@ public class ResultData {
 	public void addToResultList(BeanResultData beanResultData) {
 		this.resultList.add(beanResultData);
 	}
-	
 	public void removeFromResultList(int position) {
 			this.resultList.remove(position);
 	}
