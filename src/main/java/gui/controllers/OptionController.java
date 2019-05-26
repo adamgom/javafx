@@ -60,7 +60,7 @@ public class OptionController {
 		}
 		
 		this.progressBar.setProgress(progressBarProgress += 0.02);
-		Engine.getInstance().getFileManager().writeFile(newLine + textField.getText(), checkBox.isSelected());
+//		Engine.getInstance().getFileManager().writeFile(newLine + textField.getText(), checkBox.isSelected());
 	}
 	
 	public void okButtonMethod() {

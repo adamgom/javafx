@@ -1,4 +1,4 @@
-package fileManager;
+package Managers;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -25,7 +25,7 @@ public class FileManager {
 			}
 		}
 	}
-	
+
 	public String readFile() {
 		try {
 			fileReader = new FileReader(file);
@@ -45,7 +45,7 @@ public class FileManager {
 		}
 		return line;
 	}
-	
+
 	public void writeFile(String text, boolean append) {
 		try {
 			fileWriter = new FileWriter(file, append);
@@ -65,7 +65,3 @@ public class FileManager {
 		}
 	}
 }
-
-
-
-

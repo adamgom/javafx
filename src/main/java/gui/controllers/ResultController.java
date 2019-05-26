@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Observable;
+
 import data.BeanResultData;
 import data.ResultData;
 import gui.GuiScreens;
@@ -49,6 +51,7 @@ public class ResultController {
 		this.removeView.addEventHandler(KeyEvent.ANY, e -> selectIndex());
 		this.datePicker.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> selectDate());
 		this.exit.addEventHandler(ActionEvent.ACTION, e -> System.exit(0));
+		this.textField.textProperty().addListener((Observable, oldValue, newValue) -> addButton.setDisable(newValue.equals("")));
 		initialSettings();
 	}
 	
@@ -95,7 +98,6 @@ public class ResultController {
 	private void setActive() {
 		this.labelAdd.setText("czekam na nowe dane");
 		this.textField.clear();
-		this.addButton.setDisable(false);
 		this.cancelButton.setDisable(false);
 		this.textField.setDisable(false);
 		this.newButton.setDisable(true);

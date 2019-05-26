@@ -1,9 +1,8 @@
 package main;
 
+import Managers.DataStorageManager;
 import data.DataStorage;
-import data.OptionSettings;
 import data.ResultData;
-import fileManager.FileManager;
 import gui.controllers.AppController;
 import gui.controllers.BaseController;
 import gui.controllers.MenuController;
@@ -12,7 +11,7 @@ import gui.controllers.ResultController;
 
 public class Engine {
 	private static Engine instance;
-	private FileManager fileManager;
+	private DataStorageManager dataStorageManager;
 //	private OptionSettings optionSettings;
 	private DataStorage dataStorage;
 	private ResultData resultData;
@@ -24,16 +23,29 @@ public class Engine {
 	private ResultController resultController;
 	
 	private Engine() {
-		fileManager = new FileManager(Config.PATH);
+		dataStorage = null;
 		dataStorage = new DataStorage();
+		System.out.println(dataStorage);
 		resultData = new ResultData();
-//		dataStorage.dataFromFile();
-//		optionSettings = new OptionSettings();
+		dataStorageManager = new DataStorageManager(dataStorage);
+		dataStorageManager.dataFromFile();
 		this.baseController = new BaseController();
 		this.menuController = new MenuController();
-		this.appController = new AppController();
+		this.appController = new AppController(dataStorage);
 		this.optionController = new OptionController();
 		this.resultController = new ResultController();
+	}
+
+	public static Engine getInstance() {
+		if (instance == null) {
+			return instance = new Engine();
+		} else {
+			return instance;	
+		}
+	}
+
+	public void appScreenOpen() {
+		appController.initialText();
 	}
 	
 	public BaseController getBaseController() {
@@ -76,17 +88,9 @@ public class Engine {
 		this.resultController = resultController;
 	}
 
-	public static Engine getInstance() {
-		if (instance == null) {
-			return instance = new Engine();
-		} else {
-			return instance;	
-		}
-	}
-	
-	public FileManager getFileManager() {
-		return fileManager;
-	}
+//	public FileManager getFileManager() {
+//		return fileManager;
+//	}
 	
 	public ResultData getResultData() {
 		return resultData;
@@ -94,5 +98,9 @@ public class Engine {
 	
 	public DataStorage getDataStorage() {
 		return dataStorage;
+	}
+	
+	public DataStorageManager getDataStorageManager() {
+		return dataStorageManager;
 	}
 }

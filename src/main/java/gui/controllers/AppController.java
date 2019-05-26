@@ -4,13 +4,13 @@ import data.DataStorage;
 import gui.GuiScreens;
 import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
+import main.Config;
 import main.Engine;
 
 public class AppController {
@@ -19,23 +19,17 @@ public class AppController {
 	@FXML private TextArea textArea;
 	@FXML private Label label, auxLabel1, auxLabel2;
 
-//	private BaseController mainController;
 	private DataStorage dataStorage;
 	private int currentSliderValue;
-	private String newDataInfo;
 
-	public AppController() {
-		this(null);
-	}
-	
-	public AppController(BaseController mainController) {
-		this.newDataInfo = "Wprowadz now¹ dan¹";
-//		this.mainController = mainController;
-//		this.dataStorage = Engine.getInstance().getDataStorage();
+	public AppController(DataStorage dataStorage) {
+		this.dataStorage = dataStorage;
 	}
 	
 	@FXML
 	public void initialize () {
+//		dataStorage = Engine.getInstance().getDataStorage();
+		System.out.println("AppC init -> " + dataStorage.getSize());
 		auxLabel1.textProperty().bind(Bindings.format("%.3f", slider.valueProperty()));
 //		auxLabel2.setText(((Integer)this.currentSliderValue).toString());
 		slider.addEventHandler(MouseEvent.MOUSE_DRAGGED, e -> activeSlider());
@@ -44,21 +38,23 @@ public class AppController {
 		printButton.addEventHandler(ActionEvent.ACTION, e -> this.label.setText(this.textArea.getText()));
 		removeButton.addEventHandler(ActionEvent.ACTION, e -> removeData());
 		returnToMenuButton.addEventHandler(ActionEvent.ACTION, e -> Engine.getInstance().getBaseController().setScreen(GuiScreens.MENU.getPane()));
-//		saveButton.addEventHandler(ActionEvent.ACTION, e -> Engine.getInstance().getFileManager().writeFile(dataStorage.dataToFile(), false));
+		saveButton.addEventHandler(ActionEvent.ACTION, e -> 
+			Engine.getInstance().getDataStorageManager().dataToFile());
 //		textArea.setText(dataStorage.getData(0));
 		sliderProperties();
+		resizeSlider();
 	}
 
 	private void activeSlider() {
 		int temporarySliderValue = sliderValueRoundedInt();
 		if (isLastSliderPosition()) {
-			textArea.setText(newDataInfo);
+			textArea.setText(Config.newDataInfo);
 		} else if (temporarySliderValue != currentSliderValue) {
 			textArea.setText(dataStorage.getData(sliderValueRoundedInt()));
 		}
 		currentSliderValue = sliderValueRoundedInt();
 		if (currentSliderValue != temporarySliderValue) {
-			System.out.println(dataStorage.getData(temporarySliderValue));
+//			System.out.println(dataStorage.getData(temporarySliderValue));
 			textArea.setText(dataStorage.getData(temporarySliderValue));
 			currentSliderValue = temporarySliderValue;
 		}
@@ -70,7 +66,7 @@ public class AppController {
 	private int sliderValueRoundedInt() {
 		return Math.max(((Long)Math.round(slider.valueProperty().getValue())).intValue()-1,0);
 	}
-	
+
 	private void resizeSlider() {
 		if (dataStorage.isNoData()) {
 			slider.setMin(0);
@@ -90,11 +86,11 @@ public class AppController {
 		slider.setSnapToTicks(true);
 		slider.setShowTickLabels(true);
 		slider.setMin(1);
-//		resizeSlider();
+		resizeSlider();
 	}
 	
 	private void addData() {
-		if (noneNewData()) {
+		if (textArea.getText().equals(Config.newDataInfo)) {
 			label.setText("brak nowej danej");
 		} else if (dataStorage.isNoData()) {
 			dataStorage.addData(textArea.getText());
@@ -113,15 +109,15 @@ public class AppController {
 	
 	private void removeData() {
 		if (dataStorage.isNoData()) {
-			textArea.setText(newDataInfo);
-			label.setText(newDataInfo);
+			textArea.setText(Config.newDataInfo);
+			label.setText(Config.newDataInfo);
 		} else if (isLastSliderPosition()) {
 			label.setText("Brak danych do usuniêcia");
 		} else if (isNotChanded()) {
 			dataStorage.removeData(currentSliderValue);
 			currentSliderValue = sliderValueRoundedInt();
 			if (dataStorage.isNoData() || isLastSliderPosition()) {
-				textArea.setText(newDataInfo);
+				textArea.setText(Config.newDataInfo);
 			} else {
 				textArea.setText(dataStorage.getData(currentSliderValue));
 			}
@@ -132,18 +128,16 @@ public class AppController {
 		resizeSlider();
 	}
 
-	private String initialText() {
+	public String initialText() {
+		resizeSlider();
 		if (dataStorage.isNoData() || isLastSliderPosition()) {
-			return newDataInfo;
+			return Config.newDataInfo;
 		} else {
 			return dataStorage.getData(currentSliderValue);
 		}
+		
 	}
 	
-	private boolean noneNewData() {
-		return textArea.getText().equals(newDataInfo);
-	}
-
 	private boolean isNotChanded() {
 		return dataStorage.getData(currentSliderValue).equals(textArea.getText());
 	}
